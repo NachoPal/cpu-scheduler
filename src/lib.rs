@@ -1,3 +1,4 @@
+#[derive(Clone, Debug)]
 pub struct Task {
     pub id: u64,
     pub queued_at: u32,
@@ -5,7 +6,15 @@ pub struct Task {
 }
 
 pub fn execution_order(tasks: Vec<Task>) -> Vec<u64> {
-    todo!()
+    let mut ref_tasks: Vec<Option<Box<Task>>> = vec![None; tasks.len()];
+
+    for task in tasks {
+      let task_queued_at = task.queued_at;
+      let task_ref = Some(Box::new(task));
+      ref_tasks[task_queued_at as usize] = task_ref;
+    }
+
+    vec![1]
 }
 
 #[cfg(test)]
