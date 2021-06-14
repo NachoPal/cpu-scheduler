@@ -5,8 +5,13 @@ pub struct Task {
     pub execution_duration: u32,
 }
 
+pub order_by_duration() -> (Vec<Option<Box<Task>>>, u64) {
+  // TO DO
+}
+
 pub fn execution_order(tasks: Vec<Task>) -> Vec<u64> {
     let mut ref_tasks: Vec<Option<Box<Task>>> = vec![None; tasks.len()];
+    let mut ordered_tasks: Vec<u64>;
 
     for task in tasks {
       let task_queued_at = task.queued_at;
@@ -14,7 +19,24 @@ pub fn execution_order(tasks: Vec<Task>) -> Vec<u64> {
       ref_tasks[task_queued_at as usize] = task_ref;
     }
 
-    vec![1]
+    let start = 0;
+    let end = 0;
+
+    while end < tasks.len() {
+      let tasks_ref_slice = &ref_tasks[start..end];
+      
+      order_by_duration(tasks_ref_slice) -> (ordered_tasks_ref, duration_sum)
+      
+      for task_ref in ordered_tasks_ref {
+        ordered_tasks.push(task_ref.id);
+      }
+
+      let prev_start = start;
+      start = end;
+      end = previous_start + duration_sum;
+    }
+
+    ordered_tasks
 }
 
 #[cfg(test)]
